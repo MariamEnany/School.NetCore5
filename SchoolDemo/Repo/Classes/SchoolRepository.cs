@@ -37,10 +37,18 @@ namespace SchoolDemo.Repo
             {
                 throw new ArgumentNullException(nameof(Grade));
             }
+            
+                // the repository fills the id (instead of using identity columns)
+                Grade.Id = Guid.NewGuid();
+                context.Grades.Add(Grade);
+           
+        }
 
-            // the repository fills the id (instead of using identity columns)
-            Grade.Id = Guid.NewGuid();
-            context.Grades.Add(Grade);
+        bool GradeIsAvailable(Grade Grade)
+        {
+            var studentId = Grade.StudentId;
+            var subjectId = Grade.SubjectId;
+            return context.Grades.Any(G => G.SubjectId == subjectId && G.StudentId == studentId);
         }
 
         public void AddStudent(Student Student)

@@ -47,9 +47,14 @@ namespace SchoolDemo.Controllers
         [HttpPost]
         public ActionResult<Grade> CreateGrade([FromBody] Grade value)
         {
+            bool IsGradeAvailable = _schoolRepository.GradeIsAvailable(value);
+            if (IsGradeAvailable)
+            {
+                //GradeIsAvailable
+                return BadRequest();
+            }
             _schoolRepository.AddGrade(value);
             _schoolRepository.Save();
-
             var GradeToReturn = _schoolRepository.GetGrade(value.Id);
             return Ok(GradeToReturn);
         }

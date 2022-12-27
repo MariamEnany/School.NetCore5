@@ -47,6 +47,7 @@ namespace SchoolDemo.Repo
         Grade UpdateGrade(Guid GradeId,Grade Grade);
         void DeleteGrade(Grade Grade);
         IEnumerable<Grade> GetGradesBySubjectId(Guid SubjectId);
+        bool GradeIsAvailable(Grade Grade);
 
 
         bool Save();
